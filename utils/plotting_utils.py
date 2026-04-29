@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from cycler import cycler
+from typing import Any, List, Dict
 
 
 # Define accessible colors (e.g., Wong palette)
@@ -12,9 +13,8 @@ custom_cycler = (cycler(color=cb_colors) +
 
 
 def create_multi_fig_with_stats(
-        input_data: dict,
-        plot_type: str,
-        show_fig: bool=True
+        input_data: dict[List],
+        plot_type: str
         ):
     """
     For each variable in input_data, plot histogrammed dataset on a new axes within the larger figure space,
@@ -68,8 +68,7 @@ def create_multi_fig_with_stats(
         if i == 1:
             ax.legend(loc=2, bbox_to_anchor=(1.05, 1.05))
     plt.tight_layout()
-    if show_fig is True:
-        plt.show()
+    plt.show()
     return fig
 
 
@@ -117,11 +116,11 @@ def plot_gaussian_mixture_data(
 
 
 def plot_gmm_results(
-        X: np.array,
-        gmm_results: dict,
+        X: np.ndarray,
+        gmm_results: dict[Dict],
         component: int,
-        upper: np.array,
-        lower: np.array
+        upper: np.ndarray,
+        lower: np.ndarray
 ):
     """ 
     Plot the results of utils.modelling_utils.identify_multi_modes_in_dataset, including the fitted
@@ -129,7 +128,7 @@ def plot_gmm_results(
 
     Parameters
     ----------
-    X : np.array
+    X : np.ndarray
         numpy array of datapoints
     
     gmm_results : dict of dict
@@ -138,10 +137,10 @@ def plot_gmm_results(
     component : int
         the component to be plotted, usually the best fit component
 
-    upper : np.array
+    upper : np.ndarray
         the mean + 3 sigma threshold of each component
 
-    lower : np.array
+    lower : np.ndarray
         the mean - 3 sigma threshold of each component
 
     Returns
@@ -176,6 +175,66 @@ def plot_gmm_results(
         np.max(gmm_results[component]["pdf_total"])*0.9,
         f"Log Likelihood = {gmm_results[component]["log_likelihood"]}"
         )
+    plt.show()
+    return fig
+
+
+def plot_gmm_anomaly_detection_results(
+        data: list,
+        thresholds: list[tuple],
+        output: dict[Any]
+):
+    """
+    Plot the anomaly detection results from using GMM component splitting.
+
+    Parameters
+    ----------
+    data : list
+        list of datapoints
+
+    thresholds : list of tuple
+        (lower, upper)
+
+    output : dict
+        {
+            "thresholds": list of tuple,
+            "n_anomalies": int,
+            "anomaly_ratio": float (3 decimals),
+            "anomalies": {
+                            "date": int,
+                            "value": float
+                            }
+            }
+
+    Returns
+    -------
+    fig : matplotlib.figure.Figure
+
+    """
+    # Set up fig
+    fig = plt.figure(figsize=(7, 3))
+    plt.gca().set_prop_cycle(custom_cycler)
+    plt.grid(True, alpha=0.4)
+
+    # Plot acceptable 3-sigma bands
+    for thresh in thresholds:
+        plt.axhspan(thresh[0], thresh[1], alpha=0.1, color='#009E73', label="acceptable bands")
+
+    # Plot data
+    plt.plot(data, 'o', ms=1, color='k', label="data")
+
+    # Overlay anomalies in different colour
+    anom_x = [anom["date"] for anom in output["anomalies"]]
+    anom_y = [anom["value"] for anom in output["anomalies"]]
+    plt.plot(anom_x, anom_y, 'o', ms=1, c='red', label="anomaly")
+
+    # Remove duplicate entries from legend
+    handles, labels = plt.gca().get_legend_handles_labels()
+    by_label = dict(zip(labels, handles))
+    plt.legend(by_label.values(), by_label.keys(), loc=2, bbox_to_anchor=(1.05, 1.0))
+
+    plt.title("3-Sigma Anomalies Detected in Synthetic Multimodal Data")
+
     plt.show()
     return fig
 
