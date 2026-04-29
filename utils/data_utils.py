@@ -68,8 +68,19 @@ def create_multi_modal_test_data(
         )
         modes.append(mode_data)
 
+    # add outliers
+    outliers = []
+    for mode in modes:
+        max_val = max(mode)
+        min_val = min(mode)
+        for _ in range(random.randrange(5)):
+            # add outlier less than the minimum value of this mode
+            outliers.append(random.random() * min_val)
+            # add outlier less than the maximum value of this mode * 60%
+            outliers.append(random.random() * max_val*1.6)
+
     # add all modes to single dataset, then shuffle
-    data = modes[0] + modes[1] + modes[2]
+    data = modes[0] + modes[1] + modes[2] + outliers
     random.shuffle(data)
 
     # Generate and show results on a figure if requested
