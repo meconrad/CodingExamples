@@ -36,3 +36,19 @@ def test_create_multi_modal_test_data():
         assert max(mode) <= 100*1.6  # outliers sampled from range up to 60% of mode max
 
 
+def test_create_test_data():
+    """ 
+    Test Create Test Data utility for proper output.
+    """
+    test_data = create_test_data(noise_std=5.0, noise_size=100)
+    assert sorted(test_data.keys()) == [
+        "beta",
+        "exponential",
+        "gamma",
+        "lognormal",
+        "normal",
+        "triang",
+    ]
+    for key in test_data.keys():
+        assert len(test_data[key]) == 1100
+        assert np.std(test_data[key]) <= 5.0
