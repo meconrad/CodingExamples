@@ -3,7 +3,7 @@ import numpy as np
 
 def sum_to_target(sample_array, target):
     """ 
-    Returns the indices of two numbers that add up to a specific target in an array.
+    Returns the indices of two numbers that add up to a specific target.
 
     Parameters
     ----------
@@ -21,4 +21,7 @@ def sum_to_target(sample_array, target):
         if remainder in sample_array:
             i2 = np.where(sample_array == remainder)[0][0]
             break
-    return (i, i2)
+    if i != i2:
+        return (i, i2)
+    else:
+        return None

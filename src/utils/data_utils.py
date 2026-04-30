@@ -3,7 +3,7 @@ import random
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 
-from utils.plotting_utils import plot_gaussian_mixture_data
+from src.utils.plotting_utils import plot_gaussian_mixture_data
 
 
 random.seed(45)
@@ -68,7 +68,7 @@ def create_multi_modal_test_data(
         )
         modes.append(mode_data)
 
-    # add outliers
+    # add extra outliers
     outliers = []
     for mode in modes:
         max_val = max(mode)
@@ -88,7 +88,7 @@ def create_multi_modal_test_data(
     if show_fig is True:
         fig = plot_gaussian_mixture_data(data, modes)
 
-    return data, modes, fig
+    return data, modes, outliers, fig
 
 
 def create_test_data(

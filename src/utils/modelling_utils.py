@@ -2,7 +2,7 @@ from sklearn.mixture import GaussianMixture
 import scipy.stats as stats
 import numpy as np
 
-from utils.plotting_utils import plot_gmm_results, plot_gmm_anomaly_detection_results
+from CodingExamples.src.utils.plotting_utils import plot_gmm_results, plot_gmm_anomaly_detection_results
 
 def percentile_mask(
         data: np.ndarray,

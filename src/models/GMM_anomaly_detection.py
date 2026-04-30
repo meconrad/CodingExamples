@@ -1,4 +1,4 @@
-from utils.modelling_utils import (
+from CodingExamples.src.utils.modelling_utils import (
     identify_multi_modes_in_dataset,
     identify_anomalies_in_multimodal_data
 )
