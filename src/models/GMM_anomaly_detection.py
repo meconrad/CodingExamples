@@ -36,31 +36,13 @@ class GMMAnomalyDetection():
 
         max_iter : int, default = 1000
             Max iterations to supply to GMM
-    
 
-        Returns
-        -------
-        output : dict
-            {
-                "thresholds": list of tuple,
-                "n_anomalies": int,
-                "anomaly_ratio": float (3 decimals),
-                "anomalies": {
-                                "date": int,
-                                "value": float
-                                }
-                }
         """
         self.data = data
         self.min_scrub = min_scrub
         self.max_scrub = max_scrub
         self.max_components = max_components
         self.max_iter = max_iter
-
-        self.get_component_thresholds()
-        output = self.build_output()
-        self.output_to_database() # Not yet implemented
-        return output
     
     def get_component_thresholds(self):
         """
@@ -94,3 +76,12 @@ class GMMAnomalyDetection():
         Output detected anomalies to noSQL database.
         """
         pass
+
+    def run(self):
+        """
+        Run GMM Anomaly Detection.
+        """
+        self.get_component_thresholds()
+        output = self.build_output()
+        self.output_to_database()  # Not yet implemented
+        return output
