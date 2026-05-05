@@ -6,6 +6,7 @@ Nov 2019
 
 April 2026
 - Utilities and Notebook demonstrating utilities
+- Gaussian Mixture Model Anomaly Detection model class
 
 May 2026
 - Fraud Detection XGBoost model class and notebook
