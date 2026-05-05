@@ -9,5 +9,5 @@ April 2026
 - Gaussian Mixture Model Anomaly Detection model class
 
 May 2026
-- Fraud Detection XGBoost model class and notebook
+- Fraud Detection XGBoost model class and notebook (WIP - still adding inferencing)
 
