@@ -5,3 +5,6 @@ Nov 2019 - Example of Working with Astronomical Data
 
 April 2026 - Utilities and Notebook demonstrating utilities
 
+May 2026
+- Fraud Detection XGBoost model class and notebook
+
