@@ -1,5 +1,5 @@
 # CodingExamples
-Examples of various types of code I've produced since 2015.
+Examples of various pieces of code I've written since 2015.
 
 Nov 2019
 - Example of Working with Astronomical Data
