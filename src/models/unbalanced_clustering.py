@@ -55,14 +55,9 @@ class UnbalancedClustering():
         self.features = features
         self.show_fig = show_fig
 
-    def set_params(self, y: np.ndarray) -> dict:
+    def set_params(self) -> dict:
         """
         Set the parameters to be used for XGBoost, including calculating the class imbalance ratio.
-
-        Parameters
-        ----------
-        y : np.ndarray
-            the target to predict, i.e. fraud/no-fraud
 
         Returns
         -------
@@ -70,7 +65,7 @@ class UnbalancedClustering():
             XGBoost parameters
         """
         # Determine the ratio of the classes
-        _, counts = np.unique(y, return_counts=True)
+        _, counts = np.unique(self.y, return_counts=True)
         class_ratio = counts[0] / counts[1]
         
         # Set Training Parameters
@@ -281,7 +276,7 @@ class UnbalancedClustering():
 
         """
         # Set the training parameters
-        params = self.set_params(y)
+        params = self.set_params()
 
         # Initialize KFold
         skf = StratifiedKFold(n_splits=self.n_splits, shuffle=True, random_state=45)
