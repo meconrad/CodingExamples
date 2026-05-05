@@ -421,7 +421,7 @@ class UnbalancedClustering():
 
         return y_final_predictions, cm, fig
     
-    def run(self) -> tuple[
+    def run_training(self) -> tuple[
         np.ndarray,
         np.ndarray,
         dict[str, Any],
